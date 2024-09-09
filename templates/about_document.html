@@ -1,0 +1,392 @@
+{% extends "bootstrap/base.html" %}
+
+
+{% block styles %}
+{{ super() }}
+<link href="/oncodrug/static/css/main.css" rel="stylesheet"/>
+<!-- Animation CSS -->
+
+<link rel="stylesheet" type="text/css" href="/oncodrug/static/css/browse_jquery.dataTables.min.css">
+
+
+<style>
+    h1{
+      font-size: 2.25rem;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: 1.875rem;
+      font-weight: 600;
+        margin-bottom: 1.875rem;
+        margin-top: 1.875rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 500;
+        margin-bottom: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    p {
+        margin-bottom: 0.95rem;
+        margin-top: 0.95rem;
+    }
+    hr {
+        border-color: #0968C3;
+        border-width: 0;
+        width: 100%;
+        margin: 10px auto;
+        background-color: #0968C3;
+        height: 3px;
+        border: none;
+      }
+
+    .no-markers {
+            list-style: none; 
+            padding-left: 0; 
+        }
+        .no-markers li {
+            padding-left: 0; 
+        }
+
+    strong {
+    font-weight: bold;
+            }
+        body {
+        font-family: Arial, sans-serif
+    }
+	
+      
+    .custom-navbar .navbar-nav > li > a {
+		color: #fff; 
+		margin-right: -50px;
+	}
+
+    .custom-navbar {
+      background: linear-gradient(145deg, #8a33c9, #bc6ed0); 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
+    border: none; 
+}
+
+
+    .navbar .navbar-nav {
+      display: inline-block;
+      float: none;
+      vertical-align: top;
+    }
+
+    .navbar .navbar-collapse {
+      text-align: center;
+    }
+
+    .navbar-nav .nav-link {
+        margin-right: 25px;
+        margin-left: 25px;
+        font-size: 20px;
+    }
+
+    .custom-container {
+    max-width: 1700px; 
+    margin-left: auto;
+    margin-right: auto;
+    }
+
+    .custom-statistics {
+    max-width: 1700px; 
+    margin: 0 auto; 
+    
+    }
+    
+    .custom-row {
+    margin-top: 40px; 
+    margin-bottom: 40px; 
+}
+
+    
+    .custom-btn {
+    border: 2px solid white;
+}
+
+
+.custom-btn:hover {
+    background-color: white;
+}
+
+
+
+.nav-link {
+    font-size: 20px; 
+  }
+
+  .bootstrap-table .search input[type="search"] {
+    height: 35px; 
+    font-size: 14px; 
+}
+
+a {
+  color: #0968C5; 
+      }
+
+      footer {
+    height: 60px;
+    background-color: #6710c7;
+    margin-bottom:0;
+    position: relative;
+    width: 100%;
+}
+
+html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            flex: 1;
+        }
+
+        .footer-content p {
+        margin: 10;
+        text-align: center; 
+        width: 100%; 
+    }
+
+
+    .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+</style>
+{% endblock %}
+
+{% block scripts%}
+{{super()}}
+<script src="/oncodrug/static/js/browse_bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="/oncodrug/static/css/browse_bootstrap-table.min.css">
+<script src="/oncodrug/static/js/browse_tableExport.min.js"></script>
+<script src="/oncodrug/static/js/browse_bootstrap-table-locale-all.min.js"></script>
+<script src="/oncodrug/static/js/browse_jquery-3.5.1.min.js"></script>
+<script src="/oncodrug/static/js/browse_popper.min.js"></script>
+<script src="/oncodrug/static/js/browse_bootstrap-table.min.js"></script>
+<link rel="stylesheet" href="/oncodrug/static/js/browse_all.min.css">
+
+{% endblock %}
+
+
+{% block navbar %}
+<nav class="navbar navbar-inverse custom-navbar">
+  <div class="container-fluid justify-content-center">
+
+    <div class="collapse navbar-collapse" >
+      <ul class="nav navbar-nav">
+          <li class=" nav-link"><a  class="custom-glyph nav-link custom-text" href="{{ url_for('web_index.home') }}" style="font-size: 1.4em;">OncoDrug+</a></li>
+        <li class=" nav-link"><a href="{{ url_for('web_index.home') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-home custom-glyph"></span> Home</a></li>
+        <li class=" nav-link"><a href="{{ url_for('web_index.browse_levela') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-search custom-glyph"></span> Browse</a></li>
+        <li class=" nav-link"><a href="{{ url_for('web_index.biomarker') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-map-marker custom-glyph"></span> SmartQuery</a></li>
+        <li class="nav-link"><a href="{{ url_for('web_index.statistics') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-stats custom-glyph"></span> Statistics</a></li>
+        <li class="nav-link"><a href="{{ url_for('web_index.download_db') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-download-alt custom-glyph"></span> Download</a></li>
+        <li class="nav-link"><a href="{{ url_for('web_index.about_document') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-info-sign custom-glyph"></span> Documentation</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  {% endblock %}
+
+{% block content %}
+
+<!--左侧表格栏-->
+<div class="content" style="display: flex; flex-wrap: wrap">
+    <div class="border-right" style="position:relative;width:300px;padding:15px;">
+        <div class="card">
+          <img class="card-img-top" src="/oncodrug/static/img/oncodrug_logo_border.png" style="height: 111.7px;width:300px ;" alt="card-img-top">
+            <div class="card-body">
+                <h1 class='card-title' style="text-align: center;">Help document</h1>            </div>
+            
+
+        <div role="listitem" class="md-toc-item md-toc-h2" data-ref="n13">
+        <a style='font-size: 19px' class="md-toc-inner" href="#Glossary">Glossary</a>
+        </div>
+
+        <div role="listitem" class="md-toc-item md-toc-h2" data-ref="n13">
+        <a style='font-size: 19px' class="md-toc-inner" href="#Database usage">Database usage</a>
+        </div>
+
+        <li role="listitem" style="list-style-type: none; padding-left: 1em;"  data-ref="n13">
+          <a style='font-size: 19px' class="md-toc-inner" href="#Browsing table">Browsing table</a>
+        </li>
+
+        <li role="listitem" style="list-style-type: none; padding-left: 1em;" data-ref="n13">
+          <a style='font-size: 19px' class="md-toc-inner" href="#Search function">Search function</a>
+
+          <ol style="list-style-type: none; padding-left: 1em;">
+            <li role="listitem" class="no-markers" data-ref="n13">
+              <a style='font-size: 19px' class="md-toc-inner" href="#By drugs">&#8226; By drugs</a>
+            </li>
+            <li role="listitem" class="no-markers" data-ref="n13">
+              <a style='font-size: 19px' class="md-toc-inner" href="#By genes">&#8226; By genes</a>
+            </li>
+            <li role="listitem" class="no-markers" data-ref="n13">
+              <a style='font-size: 19px' class="md-toc-inner" href="#By biomarkers">&#8226; By biomarkers</a>
+            </li>
+          </ol>
+        </li>
+
+        <div role="listitem" class="md-toc-item md-toc-h2" data-ref="n13">
+          <a style='font-size: 19px' class="md-toc-inner" href="#Treatment options for patients">Treatment options for patients</a>
+          </div>
+        
+        <div role="listitem" class="md-toc-item md-toc-h2" data-ref="n13">
+        <a style='font-size: 19px' class="md-toc-inner" href="#Resources">Resources</a>
+        </div>
+
+        <div role="listitem" class="md-toc-item md-toc-h2" data-ref="n13">
+          <a style='font-size: 19px' class="md-toc-inner" href="#Download">Download</a>
+        </div>
+
+        </div>
+    </div>
+
+<!--右侧表格栏-->
+    <div style="position:relative; padding: 10px 20px;padding-top: 10px;width: calc(100% - 300px);">
+        <h1 > OncoDrug+ Documentation       </h1>
+          <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+    <p>Combination therapies have the potential to expand the scope of molecular and treatment matching, overcome resistance and improve responses to existing drugs. However, there is currently no comprehensive database for the large-scale collection of anti-cancer drug combination data, including annotations of vital information such as mutation biomarkers, pharmacological evidences and specific cancer types. To address these gaps, we manually collected drug combination data in cancer treatment from various sources, including FDA approvals, clinical guidelines, clinical trials, electronic medical records, cell line experiments and bioinformatics predictions to develop a highly annotated cancer drug combination database (OncoDrug+). OncoDrug+ provided detailed genetic evidences, pharmacological target information and evidence score supporting each combination strategy, making evidence-based experimental or clinical applications of cancer drug combinations be possible.</p>
+    <hr>
+
+    <h2 id="Glossary"><strong>Glossary</strong></h2>
+    
+    <h3><strong>1. Evidence level</strong></h3>
+    <p>Given the diverse provenance and methodologies of each data entry, resulting in disparate evidence strengths, a universal standard is delineated to map each entry to a reasoned evidence strength level. Level A is drug combination substantiated by evidences from professional guidelines or FDA-approved therapies related to a biomarker and disease. Level B is drug combination supported by evidences from clinical trials, well-powered studies, and individual case reports from clinical journals or hospital cases. Level C is drug combinations supported by evidences sourced from in vivo or in vitro experiments (e.g., mouse studies, cell lines, molecular assays and so on). Level D is computational prediction.</p>
+    
+
+    <h3><strong>2. Defining characteristics of evidence</strong></h3>
+    <p>The sources of drug combination data include individual cases, guidelines, FDA, clinical trials, cell lines, PDX, and bioinformatics.</p>
+
+    <h3><strong>3. Targeted drug or non-targeted drug (drug nomenclature and classification)</strong></h3>
+    <p>To standardize drug nomenclature, we aligned the names of collected drug with drug accession numbers of DrugBank database. Meanwhile, we categorized drugs into targeted and non-targeted classes utilizing the ATC classification system provided by DrugBank.</p>
+
+    <h3><strong>4. Drug targets</strong></h3>
+    <p>Drug target information was downloaded from the DrugBank database.</p>
+
+    <h3><strong>5. Biomarkers (mutation annotation method)</strong></h3>
+    <p>Annotation method was according to mutation format of the Cancer Genome Interpreter database, encompassing formats included those in the Human Genome Variation Society (HGVS), encompassing the cDNA sequence (c.), protein sequence (p.), and nucleotide sequence (g.) of the corresponding genes, as well as copy number alterations and translocations.</p>
+
+    <h3><strong>6. Cancer type</strong></h3>
+    <p>Cancer types related to drug combinations were mapped to the secondary level of the OncoTree cancer classification system.</p>
+    
+    <h3><strong>7. Drug response outcome</strong></h3>
+    <p>For patient experimental datasets, drug response is defined according to the Response Evaluation Criteria in Solid Tumors (RECIST). For cell line or mouse model data, drug response is determined based on the drug synergy scores reported in the literature. This involves calculating synergy scores by observing changes in cell viability or tumor volume in cell lines or mouse models treated with single-agent targeted therapies and combination therapies. High synergy scores are defined as positive drug response outcomes. For computational prediction models, drug combinations predicted to have synergistic effects are considered to have positive response outcomes.</p>
+
+    <h3><strong>8. Evidence level score</strong></h3>
+    <p>The evidence levels annotated in the data entries were categorized as level A, B, C and D, with corresponding scores of 4, 3, 2 and 1.</p>
+
+    <h3><strong>9. FDA evidence score</strong></h3>
+    <p>The combination of drugs in the data entry was assigned a score of 3, 2 or 1, depending on whether all, some, or none of the drugs had received FDA approval.</p>
+
+    <h3><strong>10. Response score</strong></h3>
+    <p>If the drug combination response outcome was sensitive, the score was 1. If it was resistant, the score was -1.</p>
+
+    <h3><strong>11. Biomarkers matching score</strong></h3>
+    <p>If the annotated biomarkers indicated the response to the entire drug combination therapy, the score was 3. If the annotated biomarkers only indicated the response to one or some drugs in the drug combination therapy, the score was 2. If there was no annotation of biomarker, the score was 1.</p>
+
+    <h3><strong>12. Biomarkers precision score</strong></h3>
+    <p>If all annotated biomarkers in the data entry were at the single amino acid change  level, the score was 3. If some biomarkers were at the single amino acid change level or some were at the gene level, the score was 2. If all annotated biomarkers were at the gene level, the score was 1.</p>
+
+    <h3><strong>13. Prioritization score</strong></h3>
+    <p>prioritization score is then calculated according to the following formula: Prioritization score=(E_score+F_score+M_score+P_score)*R_score. where E_score is evidence level score, F_score is FDA approved score, M_score is biomarkers matching score, P_score is biomarkers precision score, and R_score is response score.</p>
+    
+
+    <hr>
+    <h2 id="Database usage"><strong>Database usage</strong></h2>
+    <p>OncoDrug+ enables users to access detailed information on the browse page by clicking on the corresponding links for drug names, cancer types, genetic mutations, and biomarkers within the data entries.</p>
+    <h3 id="Browsing table"><strong>1. Browsing table</strong></h3>
+    <p style="font-weight: bold;">&#8226; Keyword search</p>
+    <p>Entering a keyword in the search bar allows the website to retrieve all data entries containing that keyword (A).</p>
+
+    <p style="font-weight: bold;">&#8226; Drug/Cancer type/Gene/Biomarker links</p>
+    <p>Users can access detailed information by clicking on the links for drug names, cancer types, biomarkers, and genetic mutations within the data entries (B).</p>
+
+    <p style="font-weight: bold;">&#8226; Column selection</p>
+    <p>Users can filter the data displayed in the table by selecting the column names (C).</p>
+
+    <p style="font-weight: bold;">&#8226; Evidence strength level filtering</p>
+    <p>Users can filter data entries based on different levels of evidence strength (D).</p>
+
+    <p style="font-weight: bold;">&#8226; Data sorting</p>
+    <p>Users can sort data entries alphabetically or by numerical scores (E).</p>
+
+    <p style="font-weight: bold;">&#8226; Entry tooltips</p>
+    <p>Hovering over an entry displays a tooltip with a brief introduction to the entry information (F). One tooltip displays an introduction to the different types of evidence. Another tooltip displays the corresponding values for the evidence level score, FDA evidence score, response score, biomarkers matching score, and biomarkers precision score.</p>
+    <img  src="/oncodrug/static/img/browse.png"  alt="card-img-top" style="display: block; margin-left: auto; margin-right: auto; width: 1100px;">
+
+    <h3 id="Search function"><strong>2. Search function</strong></h3>
+    <p>OncoDrug+ enables users to access detailed information by searching for specific drugs, genes, biomarkers, and cancer types. To enhance user accessibility, we have incorporated a search bar for drugs, cancer types, genes, and biomarkers on the home interface. Users can first select a cancer type of interest and then search for associated drugs, genes, or biomarkers. Additionally, users can input multiple genes or biomarkers simultaneously to retrieve data on drug combinations.</p>
+    <p><img  src="/oncodrug/static/img/home_search.png" alt="card-img-top" style="display: block; margin-left: auto; margin-right: auto; width: 1100px;"></p>
+    <br>
+    
+    <p  id="By drugs" style="font-weight: bold;">&#8226; Search by drugs</p>
+    <p>By searching for drug names, users can obtain detailed information on the drug's background, mechanism of action, targets, pharmacodynamics, and indications (A). Additionally, the search results are presented in a table format, displaying all data entries related to drug combination therapies, cancer types, and biomarkers associated with the drug (B). Furthermore, we provide visualizations showing related drugs, cancer types treated (top 10 ranked by the number of associated entries), statistical evidence levels for data entries, and biomarkers (top 10 ranked by the number of associated entries) (C). Users can also click on entries in the network graph or word cloud to directly access the corresponding detailed information pages (D).</p>
+    <p><img  src="/oncodrug/static/img/drug_search.png" alt="card-img-top" style="display: block; margin-left: auto; margin-right: auto; width: 1100px;"></p>
+
+    <p id="By genes" style="font-weight: bold;">&#8226; Search by genes</p>
+    <p>This page offers detailed information on drug combination therapies for treating this specific gene, as well as the biomarkers that predict drug response (A). Additionally, we provide visualizations of the statistical evidence levels for data entries, along with the biomarkers and therapeutic drugs related to this gene (B). Users can click on entries in the network graph or word cloud to directly access the corresponding detailed information pages (C).</p>
+    <p><img  src="/oncodrug/static/img/gene_search.png" alt="card-img-top" style="display: block; margin-left: auto; margin-right: auto; width: 1100px;"></p>
+
+    <p id="By biomarkers" style="font-weight: bold;">&#8226; Search by biomarkers</p>
+    <p>This page provides detailed information on all drug combination therapy data, cancer types, and mutations associated with the specified biomarkers (A). Additionally, we visualize the associated mutations, therapeutic drugs, statistical evidence levels for data entries, and cancer types (B). Users can also click on entries in the network graph or word cloud to directly access the corresponding detailed information pages (C).</p>
+    <p><img  src="/oncodrug/static/img/action_mut.png" alt="card-img-top" style="display: block; margin-left: auto; margin-right: auto; width: 1100px;"></p>
+
+    <hr>
+    <h2 id="Treatment options for patients"><strong>Treatment options for patients</strong></h2>
+    <p>Users can upload TXT files containing patient mutation information. These TXT files are compatible with the mutation format of the Cancer Genome Interpreter database. Acceptable mutation formats include HGVSp, HGVSc, HGVSg, copy number variations, and translocations (A). Subsequently, the database website can search biomarkers presenting in the mutation profile and display feasible drug combination regimens according to prioritization scores from high to low, enabling the selection of high-confidence drug combination therapies for patients(B). Additionally, users have the option to download the retrieved data(C).</p>
+    <p><img  src="/oncodrug/static/img/patient_options.png" alt="card-img-top" style="display: block; margin-left: auto; margin-right: auto; width: 1100px;"></p>
+
+    <hr>
+    <h2 id="Resources"><strong>Resources</strong></h2>
+    <p>NCI treatment: <a href="https://www.cancer.gov/about-cancer/treatment/drugs/cancer-type">https://www.cancer.gov/about-cancer/treatment/drugs/cancer-type</a></p>
+    <p>NCCN guidelines: <a href="https://www.nccn.org/guidelines/category_1">https://www.nccn.org/guidelines/category_1</a></p>
+    <p>VICC: <a href="https://search.cancervariants.org/#*">https://search.cancervariants.org/#*</a></p>
+    <p>ClinicalTrials.gov: <a href="https://clinicaltrials.gov/">https://clinicaltrials.gov/</a></p>
+    <p>DrugCombDB: <a href="http://drugcombdb.denglab.org/">http://drugcombdb.denglab.org/</a></p>
+    <p>DCDB: <a href="http://www.cls.zju.edu.cn/dcdb/">http://www.cls.zju.edu.cn/dcdb/</a></p>
+    <p>CDCDB: <a href=" https://icc.ise.bgu.ac.il/medical_ai/CDCDB/"> https://icc.ise.bgu.ac.il/medical_ai/CDCDB/</a></p>
+    <p>REFLECT: <a href="https://bioinformatics.mdanderson.org/reflect/">https://bioinformatics.mdanderson.org/reflect/</a></p>
+    <p>DrugBank: <a href="https://go.drugbank.com/">https://go.drugbank.com/</a></p>
+    <p>I-PREDICT Clinical Trial: Sicklick, J. K. et al. Molecular profiling of cancer patients enables personalized combination therapy: the I-PREDICT study. Nat Med 25, 744-750, doi:10.1038/s41591-019-0407-5 (2019).</p>
+    <p>ALMANAC: Holbeck, S. L. et al. The National Cancer Institute ALMANAC: A Comprehensive Screening Resource for the Detection of Anticancer Drug Pairs with Enhanced Therapeutic Activity. Cancer Res 77, 3564-3576, doi:10.1158/0008-5472.CAN-17-0489 (2017).</p>
+    <p>Hui Gao et al. PDX: Gao, H. et al. High-throughput screening using patient-derived tumor xenografts to predict clinical trial drug response. Nat Med 21, 1318-1325, doi:10.1038/nm.3954 (2015).</p>
+    <p>Jennifer O"Neil et al. Cell Lines: O'Neil, J. et al. An Unbiased Oncology Compound Screen to Identify Novel Combination Strategies. Mol Cancer Ther 15, 1155-1162, doi:10.1158/1535-7163.MCT-15-0843 (2016).</p>
+    <p>Nishanth Ulhas Nair et al. Cell Line: Nair, N. U. et al. A landscape of response to drug combinations in non-small cell lung cancer. Nat Commun 14, 3830, doi:10.1038/s41467-023-39528-9 (2023).</p>
+    <p>Patricia Jaaks et al. Cell Lines: Jaaks, P. et al. Effective drug combinations in breast, colon and pancreatic cancer cells. Nature 603, 166-173, doi:10.1038/s41586-022-04437-2 (2022).</p>
+    <p>Ravi S. Narayan et al. Cell Lines: Narayan, R. S. et al. A cancer drug atlas enables synergistic targeting of independent drug vulnerabilities. Nat Commun 11, 2935, doi:10.1038/s41467-020-16735-2 (2020).</p>
+    <p>Azadeh C. Bashi et al. Cell Lines: Bashi, A. C. et al. Large-scale Pan-cancer Cell Line Screening Identifies Actionable and Effective Drug Combinations. Cancer Discov, OF1-OF20, doi:10.1158/2159-8290.CD-23-0388 (2024).</p>
+    <hr>
+
+    <h2 id="Download" ><strong>Download</strong></h2>
+    <p>Users have the option to download the complete database, data for different evidence strength levels, and data from various sources through the database website.</p>
+
+
+        
+        </div>
+      </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+  <div class="row ">
+    <div class="col-md-12 footer-content">
+           <p class="pull-left"  style="margin-top: 20px;color: white;">2023-2024 © Mulinlab@Tianjin Medical University, All Rights Reserved.</p>
+    </div>
+  </div>
+</footer> 
+
+{% endblock %}

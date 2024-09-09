@@ -1,0 +1,528 @@
+{% extends "bootstrap/base.html" %}
+
+{% block styles %}
+{{ super() }}
+
+<style>
+    
+img.custom-cursor {
+        cursor: pointer; 
+    }
+
+.content input[type=text] {
+      width: 900px;
+      height: 50px;
+      font-size: 2em;
+      outline: none;
+      padding-left: 8px;
+      margin-bottom: 10px;
+    }
+    .list_search {
+      z-index: 2;
+      position: absolute;
+      background-color: #ffffff;
+      left: 450px; 
+    }
+    .list_search ul {
+      width: 400px;
+      clear: both;
+      border: 1px solid #A9A9A9;
+      display: none;
+      list-style: none;
+      margin: 0px;
+      padding: 0px;
+      font-size:1.4em;
+    }
+    .list_search ul li {
+      padding: 10px;
+      cursor: pointer;
+    }
+    .list_search ul li:hover {
+      background-color: #CCC;
+    }
+	
+ 
+    body { 
+        font-family: Arial, sans-serif;
+    }
+    
+    .custom-navbar .navbar-nav > li > a {
+		color: #fff; 
+		margin-right: -50px;
+	    }
+
+        .custom-nav > li > a {
+        padding-left: 10px;  
+        padding-right: 10px; 
+    }
+
+    .custom-navbar {
+        background: linear-gradient(145deg, #8a33c9, #bc6ed0); 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
+    border: none; 
+}
+
+
+    .navbar .navbar-nav {
+      display: inline-block;
+      float: none;
+      vertical-align: top;
+    }
+
+    .navbar .navbar-collapse {
+      text-align: center;
+    }
+
+    .navbar-nav .nav-link {
+        margin-right: 25px;
+        margin-left: 25px;
+        font-size: 20px;
+    }
+        .custom-section {
+        margin-top: -1.05%; 
+    }
+    .jumbotron{
+        margin-bottom: 0px;
+    }
+    .custom-jumbotron1 {
+            position: relative;
+            padding: 0;
+            
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            text-align: center;
+            color: white; 
+            background-color: white;
+        }
+
+        .custom-jumbotron1 .content {
+            padding: 100px; 
+            padding-top: 20px; padding-bottom: 20px;
+        }
+
+        .custom-jumbotron2 {
+            position: relative;
+            padding: 0;
+            background-color: transparent; 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            text-align: center;
+        }
+
+        .custom-jumbotron2 .content {
+            padding: 100px; 
+            padding-top: 20px; padding-bottom: 20px;
+        }
+
+    .custom-container {
+    max-width: 1700px; 
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:-50px;
+    }
+
+    .custom-statistics {
+    max-width: 1700px; 
+    margin: 0 auto; 
+    
+    }
+    
+    .custom-row {
+    margin-top: 20px; 
+    margin-bottom: 0px; 
+}
+
+
+    
+    .custom-btn {
+    border: 2px solid white;
+}
+.form-control_cancertype{
+line-height: 1.42857143;
+color: #555;
+background-color: #fff;
+background-image: none;
+border: 1px solid #ccc;
+border-radius: 4px;
+}
+
+.custom-btn:hover {
+    background-color: white;
+}
+
+html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        .content_body {
+            flex: 1;
+        }
+        .footer-content p {
+	margin: 10;
+	text-align: center; 
+	width: 100%; 
+}
+
+
+        footer {
+    height: 60px;
+    background-color: #6710c7;
+    margin-bottom:0;
+    position: relative;
+    width: 100%;
+}
+
+</style>
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-inverse custom-navbar">
+    <div class="container-fluid justify-content-center">
+
+      <div class="collapse navbar-collapse" >
+        <ul class="nav navbar-nav">
+            <li class=" nav-link"><a  class="custom-glyph nav-link custom-text" href="{{ url_for('web_index.home') }}" style="font-size: 1.4em;">OncoDrug+</a></li>
+          <li class=" nav-link"><a href="{{ url_for('web_index.home') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-home custom-glyph"></span> Home</a></li>
+          <li class=" nav-link"><a href="{{ url_for('web_index.browse_levela') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-search custom-glyph"></span> Browse</a></li>
+          <li class=" nav-link"><a href="{{ url_for('web_index.biomarker') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-map-marker custom-glyph"></span> SmartQuery</a></li>
+          <li class="nav-link"><a href="{{ url_for('web_index.statistics') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-stats custom-glyph"></span> Statistics</a></li>
+          <li class="nav-link"><a href="{{ url_for('web_index.download_db') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-download-alt custom-glyph"></span> Download</a></li>
+          <li class="nav-link"><a href="{{ url_for('web_index.about_document') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-info-sign custom-glyph"></span> Documentation</a></li>
+        </ul>
+      </div>
+    </div>
+</nav>
+  {% endblock %}
+
+
+  {% block content %}
+  <br>
+<div class="content_body">
+  <!--巨屏设置-->
+  <div class="jumbotron custom-jumbotron1 custom-section">
+    <div class="content">
+      <h1 style="color: #064785; font-size: 3em;font-weight: bold;" class="display-3 "> <strong>Welcome to Onc<image src="/oncodrug/static/img/target.png" alt="Plus Image" width="20px" height="20px" style="position: relative; top: 0px; left: 0px;"></image>Drug<image src="/oncodrug/static/img/plus.png"  width="40px" height="40px" style="position: relative; top: -3px; left: 0px;"></image></strong> </h1>
+      <h2  style="color: black; font-size: 2em;" >A highly annotated drug combination resource for catalyzing precision combinatorial therapy</h2>
+      <style>
+        hr {
+          border-color: #064785;
+          border-width: 0;
+          width: 100%;
+          margin: 10px auto;
+          background-color: #064785;
+          height: 3px;
+          border: none;
+        }
+      </style>
+      <hr >
+    </div>
+    </div>
+<!--data search-->
+<br>
+<br>
+    <div class="jumbotron custom-jumbotron2 custom-section">
+      <div class="content">
+        <h style="color: #064785; font-size: 3em; font-weight: bold;" > Discovery of Drug Combinations </h>
+        <div class="col-md-14">
+            <form action="/oncodrug/discovery_drugcomb" method="post" class="form-inline" enctype="multipart/form-data">
+
+            <div >
+                <select class='form-control_cancertype' style="width: 600px;height: 50px; font-size:1.4em;margin-bottom: 20px; max-height: 100px; overflow-y: auto;"name="searchcancer_type" >
+                    <option value="All">All</option>
+                    <option value="Adenosquamous carcinoma of the pancreas">Adenosquamous carcinoma of the pancreas</option>
+                    <option value="Adrenocortical carcinoma">Adrenocortical carcinoma</option>
+                    <option value="Ampullary carcinoma">Ampullary carcinoma</option>
+                    <option value="Anal squamous cell carcinoma">Anal squamous cell carcinoma</option>
+                    <option value="Anaplastic thyroid cancer">Anaplastic thyroid cancer</option>
+                    <option value="Angiosarcoma">Angiosarcoma</option>
+                    <option value="Appendiceal adenocarcinoma">Appendiceal adenocarcinoma</option>
+                    <option value="Basal cell carcinoma">Basal cell carcinoma</option>
+                    <option value="Biliary tract cancer">Biliary tract cancer</option>
+                    <option value="Bladder adenocarcinoma">Bladder adenocarcinoma</option>
+                    <option value="Bladder urothelial carcinoma">Bladder urothelial carcinoma</option>
+                    <option value="Breast sarcoma">Breast sarcoma</option>
+                    <option value="Cervical adenocarcinoma">Cervical adenocarcinoma</option>
+                    <option value="Cervical squamous cell carcinoma">Cervical squamous cell carcinoma</option>
+                    <option value="Cholangiocarcinoma">Cholangiocarcinoma</option>
+                    <option value="Colorectal adenocarcinoma">Colorectal adenocarcinoma</option>
+                    <option value="Desmoid/aggressive fibromatosis">Desmoid/aggressive fibromatosis</option>
+                    <option value="Diffuse glioma">Diffuse glioma</option>
+                    <option value="Encapsulated glioma">Encapsulated glioma</option>
+                    <option value="Endometrial carcinoma">Endometrial carcinoma</option>
+                    <option value="Esophageal poorly differentiated carcinoma">Esophageal poorly differentiated carcinoma</option>
+                    <option value="Esophageal squamous cell carcinoma">Esophageal squamous cell carcinoma</option>
+                    <option value="Esophagogastric adenocarcinoma">Esophagogastric adenocarcinoma</option>
+                    <option value="Ewing sarcoma">Ewing sarcoma</option>
+                    <option value="Gastrointestinal neuroendocrine tumors">Gastrointestinal neuroendocrine tumors</option>
+                    <option value="Gastrointestinal stromal tumor">Gastrointestinal stromal tumor</option>
+                    <option value="Glioblastoma">Glioblastoma</option>
+                    <option value="Head and neck squamous cell carcinoma">Head and neck squamous cell carcinoma</option>
+                    <option value="Hepatocellular carcinoma">Hepatocellular carcinoma</option>
+                    <option value="Inflammatory myofibroblastic tumor">Inflammatory myofibroblastic tumor</option>
+                    <option value="Intracholecystic papillary neoplasm">Intracholecystic papillary neoplasm</option>
+                    <option value="Intraductal papillary neoplasm of the bile duct">Intraductal papillary neoplasm of the bile duct</option>
+                    <option value="Invasive breast carcinoma">Invasive breast carcinoma</option>
+                    <option value="Liposarcoma">Liposarcoma</option>
+                    <option value="Low-grade gliomas">Low-grade gliomas</option>
+                    <option value="Lung adenocarcinoma in situ">Lung adenocarcinoma in situ</option>
+                    <option value="Lung neuroendocrine tumor">Lung neuroendocrine tumor</option>
+                    <option value="Lymphoid neoplasm">Lymphoid neoplasm</option>
+                    <option value="Melanoma">Melanoma</option>
+                    <option value="Meningothelial tumor">Meningothelial tumor</option>
+                    <option value="Mucosal melanoma of the urethra">Mucosal melanoma of the urethra</option>
+                    <option value="Myeloid neoplasm">Myeloid neoplasm</option>
+                    <option value="Nerve sheath tumor">Nerve sheath tumor</option>
+                    <option value="Neuroblastoma">Neuroblastoma</option>
+                    <option value="Non-seminomatous germ cell tumor">Non-seminomatous germ cell tumor</option>
+                    <option value="Non-small cell lung cancer">Non-small cell lung cancer</option>
+                    <option value="Ocular melanoma">Ocular melanoma</option>
+                    <option value="Osteosarcoma">Osteosarcoma</option>
+                    <option value="Ovarian epithelial tumor">Ovarian epithelial tumor</option>
+                    <option value="Pancancer">Pancancer</option>
+                    <option value="Pancreatic adenocarcinoma">Pancreatic adenocarcinoma</option>
+                    <option value="Peritoneal mesothelioma">Peritoneal mesothelioma</option>
+                    <option value="Peritoneal serous carcinoma">Peritoneal serous carcinoma</option>
+                    <option value="Pheochromocytoma">Pheochromocytoma</option>
+                    <option value="Pleural mesothelioma">Pleural mesothelioma</option>
+                    <option value="Prostate adenocarcinoma">Prostate adenocarcinoma</option>
+                    <option value="Renal cell carcinoma">Renal cell carcinoma</option>
+                    <option value="Sarcomatoid carcinoma of the urinary bladder">Sarcomatoid carcinoma of the urinary bladder</option>
+                    <option value="Small cell bladder cancer">Small cell bladder cancer</option>
+                    <option value="Squamous cell carcinoma of the vulva/vagina">Squamous cell carcinoma of the vulva/vagina</option>
+                    <option value="Thymic epithelial tumor">Thymic epithelial tumor</option>
+                    <option value="Urachal carcinoma">Urachal carcinoma</option>
+                    <option value="Urethral cancer">Urethral cancer</option>
+                    <option value="Bladder Urothelial Carcinoma">Bladder Urothelial Carcinoma</option>
+                    <option value="Well-differentiated thyroid cancer">Well-differentiated thyroid cancer</option>
+                    
+                    
+                </select>
+	
+                <label for="cancertype-select" style="font-size: 2em; margin-left: 40px;color: #0980D4;" >Please select cancer types</label>
+                <img class="custom-cursor" title="Select Cancer Type - Specify drug combinations that are relevant to a particular type of cancer." style=" margin-top: -15px;" src="/oncodrug/static/img/help.svg">
+            </div>
+
+                <input id="searchInput" class="form-control mr-sm-2" type="search" aria-label="Search" name="query" style="width: 900px;height: 50px;font-size: 2em;">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="height: 50px;font-size: 2em;color: #0980D4;">Search</button>
+                <div class="list_search"><ul id="ul"></ul></div>
+                <!-- 选择按钮放在同一个 row 上 -->
+                <div class="row mt-2">
+                    <div class="col">
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio" value="Drug: e.g. Afatinib" />
+                        <label class="form-check-label" for="inlineRadio" style="font-size: 1.4em;">Drug</label>
+
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Gene: e.g. BRAF or 'BRAF; KRAS'" />
+                        <label class="form-check-label" for="inlineRadio2" style="font-size: 1.4em;">Gene</label>
+
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="Biomarker: e.g. BRAF V600E or 'TP53 V197G; KRAS G12D'"  />
+                        <label class="form-check-label" for="inlineRadio3" style="font-size: 1.4em;">Biomarker</label>
+
+                        <img class="custom-cursor" title="Select Input Type - Filter drug combinations associated with specific drugs, genetic mutations or biomarkers." style="margin-top: -10px;" src="/oncodrug/static/img/help.svg">
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+                <div class="example">
+                    <ul class="list-inline">
+                        <li class="list-inline-item"  style="font-size: 1.4em;"><a href="{{ url_for('web_index.each_drug_info', drugname='Afatinib') }}" id="exp1">Example:Afatinib</a></li>
+                        <li class="list-inline-item"  ><span>|</span></li>
+                        <li class="list-inline-item"  style="font-size: 1.4em;"><a href="{{ url_for('web_index.each_actmut_info', actmut='BRAF') }}" id="exp3">Example:BRAF</a></li>
+                        <li class="list-inline-item"><span>|</span></li>
+                        <li class="list-inline-item"  style="font-size: 1.4em;"><a href="{{ url_for('web_index.each_actmut_info', actmut='BRAF V600E') }}" id="exp4">Example:BRAF V600E</a></li>
+                    </ul>
+                </div>
+			<p style="color: red">Invalid variant format or no data found. Please check and enter the data again.</p>
+            <!-- JavaScript -->
+            <script>
+                document.querySelectorAll('input[type=radio]').forEach(input => {
+                    input.addEventListener('change', function() {
+                        const searchInput = document.getElementById('searchInput');
+                        searchInput.placeholder = `Search ${this.value}`;
+                    });
+                });
+                
+                    document.addEventListener('DOMContentLoaded', function() {
+                // 设置选中状态
+                document.getElementById('inlineRadio3').checked = true;
+                // 更新输入框的 placeholder
+                document.getElementById('searchInput').placeholder = "Biomarker: e.g. BRAF V600E or 'TP53 V197G; KRAS G12D'";
+            });
+
+            // 提示数据数组
+var dataListDrug =['AEE788', 'ASP-3026', 'AZD-1480', 'AZD-4547', 'AZD-7762', 'AZD-8055', 'AZD-8330', 'AZD-9496', 'AZD0156', 'AZD1390', 'AZD1775', 'AZD2811', 'AZD4320', 'AZD5153', 'AZD5363', 'AZD5991', 'AZD6738', 'AZD7648', 'AZD8186', 'Abemaciclib', 'Abiraterone', 'Acalabrutinib', 'Afatinib', 'Aflibercept', 'Aldesleukin', 'Alectinib', 'Alisertib', 'Alpelisib', 'Alvespimycin', 'Aminoglutethimide', 'Amrubicin', 'Amuvatinib', 'Anakinra', 'Anastrozole', 'Anlotinib', 'Apalutamide', 'Arsenic trioxide', 'Asciminib', 'Atezolizumab', 'Avapritinib', 'Avelumab', 'Axitinib', 'Azacitidine', 'BIIB021', 'BMS-599626', 'BMS-754807', 'BMS-908662', 'BNC105P', 'Bavituximab', 'Bazedoxifene', 'Belinostat', 'Berzosertib', 'Bevacizumab', 'Bexarotene', 'Bicalutamide', 'Binimetinib', 'Birabresib', 'Bortezomib', 'Bosutinib', 'Brigatinib', 'Brivanib', 'Buparlisib', 'Bupivacaine', 'CC-401', 'CI-1040', 'CP-547632', 'CRLX101', 'Cabozantinib', 'Camptothecin', 'Capecitabine', 'Capivasertib', 'Capmatinib', 'Carboplatin', 'Carfilzomib', 'Carmustine', 'Cediranib', 'Celecoxib', 'Ceritinib', 'Cetuximab', 'Cisplatin', 'Clofarabine', 'Cobimetinib', 'Copanlisib', 'Crenolanib', 'Crizotinib', 'Cyclophosphamide', 'Cyproterone acetate', 'Cytarabine', 'Dabrafenib', 'Dacarbazine', 'Dacomitinib', 'Dactolisib', 'Danusertib', 'Darolutamide', 'Dasatinib', 'Daunorubicin', 'Decitabine', 'Dexamethasone', 'Dimethyl fumarate', 'Dinaciclib', 'Docetaxel', 'Doxorubicin', 'Duligotuzumab', 'Durvalumab', 'Duvelisib', 'Elgemtumab', 'Enasidenib', 'Encorafenib', 'Ensartinib', 'Entinostat', 'Entrectinib', 'Enzalutamide', 'Enzastaurin', 'Epirubicin', 'Eprenetapopt', 'Erdafitinib', 'Eribulin', 'Erlotinib', 'Etoposide', 'Everolimus', 'Evofosfamide', 'Exemestane', 'FOLFOX6', 'FOLFOXIRI', 'Fasudil', 'Figitumumab', 'Filgrastim', 'Floctafenine', 'Fludarabine', 'Fluorouracil', 'Flutamide', 'Foretinib', 'Fostamatinib', 'Fotemustine', 'Fulvestrant', 'Furmonertinib', 'Futibatinib', 'Ganitumab', 'Gefitinib', 'Gemcitabine', 'Gemtuzumab ozogamicin', 'Genistein', 'Gilteritinib', 'Glesatinib', 'Goserelin', 'Hydrocortisone succinate', 'Hydroxyurea', 'Ibrutinib', 'Idasanutlin', 'Ifosfamide', 'Imatinib', 'Infigratinib', 'Interferon alfa-2a', 'Interferon alfa-2b', 'Ipatasertib', 'Ipilimumab', 'Irinotecan', 'Isoniazid', 'Isotretinoin', 'Ivosidenib', 'Ixabepilone', 'Ixazomib', 'JNJ-40346527', 'Ketoconazole', 'L744832', 'LGH-447', 'LY-294002', 'Lapatinib', 'Larotrectinib', 'Lenalidomide', 'Lenvatinib', 'Lestaurtinib', 'Letrozole', 'Leucovorin', 'Leuprolide', 'Levonorgestrel', 'Linsitinib', 'Lomustine', 'Lonafarnib', 'Lorlatinib', 'Lucitanib', 'Lumretuzumab', 'Lysergic acid diethylamide', 'MK-1775', 'MK-2206', 'MK-8776', 'MLN8054', 'Magnesium sulfate', 'Mequinol', 'Mesalazine', 'Metformin', 'Methionine', 'Methotrexate', 'Methoxsalen', 'Midazolam', 'Midostaurin', 'Mirdametinib', 'Mitoxantrone', 'N-acetyl-L-arginine', 'Navitoclax', 'Nedaplatin', 'Neratinib', 'Nevirapine', 'Nilotinib', 'Nilutamide', 'Nintedanib', 'Niraparib', 'Nitroglycerin', 'Nivolumab', 'Norepinephrine', 'Obinutuzumab', 'Octreotide', 'Ofatumumab', 'Ofranergene obadenovec', 'Olaparib', 'Omipalisib', 'Onartuzumab', 'Osimertinib', 'Oxaliplatin', 'PD98059', 'PLX9486', 'Paclitaxel', 'Palbociclib', 'Palonosetron', 'Pamiparib', 'Panitumumab', 'Panobinostat', 'Pardoprunox', 'Pasireotide', 'Pazopanib', 'Pegfilgrastim', 'Peginterferon alfa-2b', 'Pembrolizumab', 'Pemetrexed', 'Perifosine', 'Perphenazine', 'Pertuzumab', 'Pexidartinib', 'Phenelzine', 'Picropodophyllin', 'Pictilisib', 'Pilaralisib', 'Platinum', 'Plerixafor', 'Pomalidomide', 'Ponatinib', 'Pralatrexate', 'Pravastatin', 'Prednisolone', 'Prednisone', 'Prexasertib', 'Pyrotinib', 'Quizartinib', 'RAF-265', 'RG-4733', 'Raloxifene', 'Raltitrexed', 'Ramucirumab', 'Refametinib', 'Regorafenib', 'Ribociclib', 'Ridaforolimus', 'Rituximab', 'Rivoceranib', 'Rociletinib', 'Romidepsin', 'Rosuvastatin', 'Rubitecan', 'Ruxolitinib', 'SG3199', 'SGI-1776', 'ST1926', 'Sapitinib', 'Sargramostim', 'Savolitinib', 'Selenious acid', 'Selinexor', 'Selumetinib', 'Serabelisib', 'Simvastatin', 'Sintilimab', 'Sirolimus', 'Somatostatin', 'Sonidegib', 'Sonolisib', 'Sorafenib', 'Sulindac', 'Sunitinib', 'TAK-901', 'TAS-102', 'Tacrolimus', 'Talazoparib', 'Tamibarotene', 'Tamoxifen', 'Tandutinib', 'Tanespimycin', 'Taselisib', 'Tazemetostat', 'Tegafur', 'Tegafur-uracil', 'Telatinib', 'Temozolomide', 'Temsirolimus', 'Tepotinib', 'Teprotumumab', 'Thalidomide', 'Tipifarnib', 'Tipiracil', 'Tirbanibulin', 'Tislelizumab', 'Tivantinib', 'Tivozanib', 'Tofacitinib', 'Topotecan', 'Toripalimab', 'Tovorafenib', 'Tozasertib', 'Trabectedin', 'Trametinib', 'Trastuzumab', 'Trastuzumab emtansine', 'Trebananib', 'Tremelimumab', 'Tretinoin', 'Trichostatin', 'Trifluridine', 'Trifluridine/Tipiracil', 'Tucatinib', 'Ulixertinib', 'Umbralisib', 'Uprosertib', 'Valproic acid', 'Vandetanib', 'Veliparib', 'Vemurafenib', 'Venetoclax', 'Vinblastine', 'Vincristine', 'Vinflunine', 'Vinorelbine', 'Vismodegib', 'Vistusertib', 'Vorinostat', 'Voruciclib', 'WNT-974', 'Zanubrutinib'];
+            var dataListGene =['AAK', 'AATK', 'ABCB1', 'ABCC3', 'ABL1', 'ABL1-BCR', 'ABL2', 'ACACA', 'ACVR1', 'ACVR1B',
+ 'ACVR2A', 'ADGRB1', 'AFF4', 'AGR2', 'AHCTF1', 'AHNAK',
+ 'AIFM2', 'AKD1__ROS1', 'AKT', 'AKT1', 'AKT2', 'AKT3', 'ALK', 'AMOT', 'ANK3', 'APAF1', 'APC',
+ 'AR', 'ARAF', 'ARAP3', 'AREG', 'ARFGEF1', 'ARFGEF2', 'ARHGAP29', 'ARHGEF6', 'ARID1A', 
+ 'ARID1B', 'ARID2', 'ARID4A', 'ARID4B', 'ASCL1', 'ASH1L', 'ASNS', 'ASS1',
+ 'ASXL1', 'ATM', 'ATR', 'ATRX', 'ATX', 'ATXN1L', 'AURKA', 'AURKC', 'AXIN1', 'AXIN2', 'AXL', 
+ 'B2M', 'B4GALT1', 'BAK1', 'BAP1', 'BARD1', 'BAZ2B', 'BBC3', 'BCL2', 'BCL2A1', 'BCL2L1', 'BCL2L11', 
+ 'BCL2L12', 'BCL2L13', 'BCL2L2', 'BCLAF1', 'BCOR', 'BCR__ABL', 'BIRC3', 'BIRC5',
+ 'BLM', 'BMPR2', 'BNC2', 'BNIP2', 'BOK', 'BPTF', 'BRAF', 'BRCA', 'BRCA1', 'BRCA14',
+ 'BRCA15', 'BRCA16', 'BRCA18', 'BRCA2', 'BRCA26', 'BRCA27', 'BRCA30', 'BRCA31', 'BRCA5',
+ 'BRCA58', 'BRCA62', 'BRCA63', 'BRCA64', 'BRIP1', 'BTK', 'CALR', 'CASP3', 'CBFA2T3', 'CBFB',
+ 'CBL', 'CBLB', 'CCAR1', 'CCNB1', 'CCND1', 'CCND2', 'CCND3', 'CCNE1', 'CCNE2', 'CCNNB1', 'CD274',
+ 'CDC25C', 'CDC27', 'CDH1', 'CDK12', 'CDK2', 'CDK4', 'CDK6', 'CDK9', 'CDKN1A', 'CDKN1B', 'CDKN2A', 'CDKN2B', 
+ 'CEBPA', 'CEP290', 'CFLAR', 'CHD3', 'CHD8', 'CHD9', 'CHEK1', 'CHEK2', 'CLASP2', 'CLOCK', 'CLTC', 'CNOT1', 'COL1A1', 
+ 'COP1', 'CRBN', 'CREBBP', 'CRKL', 'CRNKL1', 'CSDE1', 'CSF1R', 'CSF3R', 'CTCF', 'CTNNB1', 'CTNND1', 'CTTN', 'CUL2', 
+ 'CUL4A', 'CUX1', 'CXCR4', 'CYLD', 'DCC', 'DDB2', 'DDIT3', 'DDR1', 'DDR2', 'DDX11', 'DDX3X', 'DDX41', 'DDX43', 'DHX9', 
+ 'DICER1', 'DKK1', 'DLBC2', 'DNMT1', 'DNMT3A', 'DUSP6', 'DYRK1B', 'E2014K', 'EFGR', 'EGFR', 'EGFR exon19', 'EIF4G1', 'EIF4G3', 
+ 'ELF1', 'EP300', 'EPAS1', 'EPHA2', 'EPHA3', 'EPHB2', 'EPHB4', 'ER', 'ERBB', 'ERBB2', 'ERBB3', 'ERBB4', 'ERCC1', 'ERCC2', 'ERCC5', 
+ 'ERG', 'ERRFI1', 'ESR1', 'ETV1', 'ETV4', 'ETV5', 'ETV6', 'EWSR1', 'EXO1', 'EZH2', 'F8', 'FAM60A', 'FANCA', 'FANCC', 'FANCD2', 'FAT1',
+ 'FAT2', 'FBXW7', 'FCGR2A', 'FCGR2B', 'FGF13', 'FGF14', 'FGF19', 'FGF23', 'FGF3', 'FGF4', 'FGF6', 'FGFR', 'FGFR1', 'FGFR2', 'FGFR3', 'FGFR4',
+ 'FIP1L1', 'FLT1', 'FLT3', 'FLT3__ITD', 'FLT4', 'FN1', 'FOS', 'FOXA2', 'FOXL2', 'FOXO1', 'FOXO3', 'FOXP1', 'FRS2', 'FTSJD1', 'FUBP1', 'GADD45A',
+ 'GADD45B', 'GADD45G', 'GATA2', 'GATA3', 'GBM2', 'GNA11', 'GNAQ', 'GNAS', 'GPS2', 'H3F3A', 'H3F3B', 'HAVCR2', 'HDAC', 'HDAC9', 'HER2',
+ 'HER3', 'HGF', 'HLA-DRA', 'HMOX1', 'HNSC17', 'HNSC20', 'HNSC26', 'HNSC32', 'HR', 'HRAS', 'HRBB2', 'HSPA5', 'HSPA6', 'HSPB1', 'HER2', 'ID1', 
+ 'IDH1', 'IDH2', 'IGF1R', 'IGF2', 'IGFBP3', 'IKZF1', 'INPP4A', 'IRS2', 'ITSN1', 'JAK', 'JAK1', 'JAK2', 'JAK3', 'JUN', 'KALRN', 'KAT6B',
+ 'KDM5C', 'KDM6A', 'KDR', 'KIF5B-RET', 'KIT', 'KLF6', 'KLLN', 'KMT2A', 'KMT2C', 'KMT2D', 'KRAS', 'KRT18', 'LAG3', 'LAMA2', 'LARP4B',
+ 'LCK', 'LGALS7', 'LGG16', 'LIMA1', 'LMTK2', 'LMTK3', 'LNPEP', 'LPHN2', 'LRP1B', 'LRP6', 'LTK', 'LYN', 'MACF1', 'MAGI2', 'MAP2K1', 'MAP2K2',
+ 'MAP2K4', 'MAP3K1', 'MAP3K4', 'MAP4K3', 'MAPK1', 'MAPK8', 'MBD4', 'MCL1', 'MCM3', 'MCM7', 'MDM2', 'MDM4', 'MECOM', 'MED12', 'MED17', 'MED23',
+ 'MED24', 'MED29', 'MEK', 'MEN1', 'MERTK', 'MET', 'MGA', 'MLH1', 'MLL', 'MLL2', 'MLL3', 'MMP2', 'MNDA', 'MRE11', 'MSH6', 'MSI', 'MST1R', 'MTOR', 'MYB',
+ 'MYC', 'MYCN', 'MYH11', 'MYH9', 'NAPRT', 'NBN', 'NCOA3', 'NCOR1', 'NCOR2', 'NEDD9', 'NF1', 'NF2', 'NOTCH1', 'NOTCH2', 'NOTCH3', 'NOTCH4', 'NPM1', 'NQO1',
+ 'NR2F2', 'NR4A2', 'NRAS', 'NRG1', 'NSD2', 'NT5E', 'NTN4', 'NTRK', 'NTRK1', 'NTRK2', 'NTRK3', 'NUP93', 'OV59', 'PAAD4', 'PALB2', 'PAM50mRNA_Her2amp',
+ 'PANCAN111', 'PANCAN116', 'PANCAN117', 'PANCAN124', 'PANCAN141', 'PANCAN208', 'PANCAN216', 'PANCAN217', 'PANCAN218', 'PANCAN245', 'PANCAN316', 'PANCAN317', 
+ 'PANCAN318', 'PANCAN319', 'PANCAN320', 'PANCAN321', 'PANCAN322', 'PANCAN323', 'PANCAN378', 'PANCAN379', 'PANCAN380', 'PANCAN417',
+ 'PANCAN424', 'PANCAN45', 'PANCAN46', 'PANCAN47', 'PANCAN48', 'PANCAN75', 'PANCAN85', 'PANCAN99', 'PAPPA2', 'PARP', 
+ 'PARP1', 'PARP2', 'PARP3', 'PAX5', 'PAX8', 'PBLD', 'PBRM1', 'PCDH18', 'PCSK5', 'PD-1', 'PD-L1', 'PDCD1LG2', 'PDCD4',
+ 'PDGFB', 'PDGFR', 'PDGFRA', 'PDGFRB', 'PERP', 'PHF6', 'PHLPP1', 'PI3K', 'PI3KCA', 'PIDD1', 'PIK3C2B', 'PIK3CA', 'PIK3CB', 
+ 'PIK3CD', 'PIK3CG', 'PIK3R1', 'PIK3R2', 'PIK4CA', 'PIM1', 'PLCB1', 'PLCG1', 'PLCG2', 'PLXNA1', 'PML', 'PM__RARA', 'POLD1', 'POLE', 'POLR2B',
+ 'PPM1D', 'PPP1R15A', 'PR', 'PRKCB', 'PRKCH', 'PSIP1', 'PTCH1', 'PTEN', 'PTK2B', 'PTK7', 'PTP4A3', 'PTPN11', 'PTPN12', 'PTPRB', 'PTPRF', 
+ 'PTPRT', 'PTPRU', 'RAC1', 'RAD17', 'RAD21', 'RAD50', 'RAD51', 'RAD51D', 'RAD52', 'RAF1', 'RARA', 'RAS', 'RASA1', 'RB1', 'RBM10', 'RBM5', 
+ 'REL', 'RET', 'RFC1', 'RGS3', 'RHEB', 'RICTOR', 'RIT1', 'RNF43', 'ROBO2', 'ROR1', 'ROS1', 'RPA2', 'RPGR', 'RRM2', 'RSF1', 'RTN4', 'RUNX1', 
+ 'RYK', 'SACS', 'SCAI', 'SDHC', 'SERPINB5', 'SESN1', 'SESN2', 'SETD2', 'SETDB1', 'SGK1', 'SIN3A', 'SIVA1', 'SKP2', 'SMAD2', 'SMAD4', 'SMARCA1', 'SMARCA4', 
+ 'SMARCB1', 'SMC1A', 'SMO', 'SOS1', 'SOS2', 'SOX17', 'SOX9', 'SPRY2', 'SPTAN1', 'SRC', 'SRGAP1', 'SRGAP3', 'STAD3', 'STAD47', 'STAG2', 'STAT6', 
+ 'STEAP3', 'STK11', 'STK4', 'STMN1', 'STYK1', 'SVEP1', 'SYK', 'TAF1', 'TBK1', 'TBL1XR1', 'TCF12', 'TCF7L2', 'TERT', 'TET2', 'TFE3', 'TFF3', 
+ 'TGIF1', 'THBS1', 'THBS2', 'THRAP3', 'TIMP1', 'TJP1', 'TJP2', 'TLK1', 'TLK2', 'TMB', 'TMPRSS2', 'TOP1', 'TOP2A', 'TP53', 'TP53I3', 'TP73', 
+ 'TRIO', 'TSC1', 'TSC2', 'TTF1', 'TUBB3', 'TYRO3', 'USP6',  'VEGF', 'VEGFA', 'VHL', 'VIM', 'WASF3', 'WEE1', 'WHSC1', 'WNK1', 'WWTR1', 
+ 'XP11.2__TF3', 'XPO1', 'XRCC3', 'XRN1', 'YAP1', 'ZC3H11A', 'ZFHX3', 'ZFP36L1', 'ZFP36L2', 'ZMAT3', 'ZNF217', 'ZNF292', 'ZNRF3', 'dMMR', 'mTOR'];
+ 
+var dataListBiomarker = ['AAK Mutation', 'AATK Underexpression', 'ABCB1 Overexpression', 'ABCC3 Underexpression', 'ABL1 AMP', 'ABL1 EID261', 'ABL1 Mutation', 'ABL1 T315I', 'ABL1-BCR', 'ABL2 AMP', 'ABL2 Mutation', 'ACACA Mutation', 'ACVR1 Underexpression', 'ACVR1B Underexpression', 'ACVR2A Mutation', 'ACVR2A Underexpression', 'ADGRB1 Underexpression', 'AFF4 Mutation', 'AGR2 Overexpression', 'AHCTF1 Mutation', 'AHNAK Mutation', 'AHNAK Overexpression', 'AHNAK Underexpression', 'AIFM2 Underexpression', 'AKD1__ROS1', 'AKT Mutation', 'AKT1 AMP', 'AKT1 Mutation', 'AKT1 Underexpression', 'AKT2 AMP', 'AKT2 Mutation', 'AKT3 AMP', 'AKT3 Mutation', 'AKT3 Underexpression', 'ALK AMP', 'ALK Mutation', 'AMOT Underexpression', 'ANK3 Mutation', 'ANK3 Underexpression', 'APAF1 Mutation', 'APAF1 Overexpression', 'APC K1165*', 'APC Mutation', 'APC P1373fs*10', 'APC Q1429', 'APC R876*', 'APC T1556fs*3', 'AR AMP', 'AR Mutation', 'AR Overexpression', 'AR nan', 'ARAF Mutation', 'ARAF S490T', 'ARAP3 Underexpression', 'AREG Expression', 'AREG Underexpression', 'ARFGEF1 Mutation', 'ARFGEF2 Underexpression', 'ARHGAP29 Underexpression', 'ARHGEF6 Overexpression', 'ARID1A Mutation', 'ARID1B Mutation', 'ARID2 Mutation', 'ARID2 Overexpression', 'ARID4A Overexpression', 'ARID4A Underexpression', 'ARID4B Mutation', 'ARID4B Underexpression', 'ASCL1 Overexpression', 'ASH1L Mutation', 'ASH1L Overexpression', 'ASNS Overexpression', 'ASS1 Underexpression', 'ASXL1 Mutation', 'ATM DEL', 'ATM Mutation', 'ATM Overexpression', 'ATR DEL', 'ATR Mutation', 'ATRX DEL', 'ATRX Mutation', 'ATX DEL', 'ATXN1L Overexpression', 'ATXN1L Underexpression', 'AURKA AMP', 'AURKA Mutation', 'AURKA Overexpression', 'AURKC AMP', 'AURKC Mutation', 'AXIN1 Underexpression', 'AXIN2 Underexpression', 'AXL AMP', 'AXL Overexpression', 'Aurora Kinase AMP', 'B2M Mutation', 'B4GALT1 Overexpression', 'B4GALT1 Underexpression', 'BAK1 Overexpression', 'BAP1 Mutation', 'BAP1 Overexpression', 'BAP1 wild type', 'BARD1 DEL', 'BARD1 Mutation', 'BAZ2B Underexpression', 'BBC3 Overexpression', 'BCL2 AMP', 'BCL2 Mutation', 'BCL2 Overexpression', 'BCL2A1 Overexpression', 'BCL2L1 Mutation', 'BCL2L1 Underexpression', 'BCL2L11 Overexpression', 'BCL2L12 Underexpression', 'BCL2L13 Underexpression', 'BCL2L2 Underexpression', 'BCLAF1 Mutation', 'BCLAF1 Overexpression', 'BCOR Mutation', 'BCOR Overexpression', 'BCR__ABL', 'BIRC3 Overexpression', 'BIRC3 Underexpression', 'BIRC5 Underexpression', 'BLM DEL', 'BLM Mutation', 'BLM Overexpression', 'BLM Underexpression', 'BMPR2 Mutation', 'BMPR2 Underexpression', 'BNC2 Mutation', 'BNC2 Underexpression', 'BNIP2 Overexpression', 'BOK Underexpression', 'BPTF Mutation', 'BPTF Overexpression', 'BRAF AMP', 'BRAF D594A', 'BRAF D594G', 'BRAF D594V', 'BRAF EID1664', 'BRAF G596C', 'BRAF K483M', 'BRAF K601E', 'BRAF L597Q', 'BRAF L597R', 'BRAF L597S', 'BRAF Mutation', 'BRAF Overexpression', 'BRAF V600', 'BRAF V600D', 'BRAF V600E', 'BRAF V600G', 'BRAF V600K', 'BRAF V600M', 'BRAF V600R', 'BRAF Wild type', 'BRAF wild type', 'BRCA Mutation', 'BRCA1 DEL', 'BRCA1 Mutation', 'BRCA1 Overexpression', 'BRCA1 S1253fs*10', 'BRCA15 AMP', 'BRCA16 AMP', 'BRCA18 DEL', 'BRCA2 DEL', 'BRCA2 Mutation', 'BRCA2 Overexpression', 'BRCA31 AMP', 'BRCA62 AMP', 'BRCA63 AMP', 'BRIP1 truncation exon 19', 'BTK Mutation', 'BTK Overexpression', 'CALR Underexpression', 'CASP3 Overexpression', 'CBFA2T3 Overexpression', 'CBFB Mutation', 'CBL Overexpression', 'CBLB Overexpression', 'CCAR1 Mutation', 'CCAR1 Overexpression', 'CCNB1 Overexpression', 'CCND1 AMP', 'CCND1 Mutation', 'CCND1 Underexpression', 'CCND2 AMP', 'CCND2 Mutation', 'CCND3 AMP', 'CCND3 Mutation', 'CCND3 Overexpression', 'CCNE1 AMP', 'CCNE1 Mutation', 'CCNE2 Overexpression', 'CCNNB1 Mutation', 'CD274 AMP', 'CD274 Expression', 'CD274 Overexpression', 'CDC25C Underexpression', 'CDC27 Overexpression', 'CDH1 Mutation', 'CDK12 AMP', 'CDK12 DEL', 'CDK12 Mutation', 'CDK2 Overexpression', 'CDK4 AMP', 'CDK4 Mutation', 'CDK6 AMP', 'CDK6 Mutation', 'CDK9 Overexpression', 'CDKN1A Underexpression', 'CDKN1B DEL', 'CDKN1B Mutation', 'CDKN2A DEL', 'CDKN2A Mutation', 'CDKN2A S73R', 'CDKN2B DEL', 'CDKN2B Mutation', 'CEBPA Underexpression', 'CEP290 Overexpression', 'CEP290 Underexpression', 'CFLAR Overexpression', 'CHD3 Mutation', 'CHD8 Mutation', 'CHD9 Mutation', 'CHEK1 DEL', 'CHEK1 Mutation', 'CHEK1 Overexpression', 'CHEK2 AMP', 'CHEK2 Mutation', 'CLASP2 Overexpression', 'CLOCK Underexpression', 'CLTC AMP', 'CNOT1 Mutation', 'CNOT1 Overexpression', 'COL1A1 Overexpression', 'COP1 Overexpression', 'CRBN Overexpression', 'CREBBP Overexpression', 'CRKL AMP', 'CSDE1 Mutation', 'CSF1R AMP', 'CSF1R Mutation', 'CSF1R Overexpression', 'CSF3R Overexpression', 'CTCF Overexpression', 'CTNNB1 Mutation', 'CTNNB1 T41A', 'CTNND1 Underexpression', 'CUL2 Mutation', 'CUL2 Overexpression', 'CUL4A AMP', 'CUL4A DEL', 'CUL4A Mutation', 'CUX1 Overexpression', 'CXCR4 Overexpression', 'DCC Overexpression', 'DDB2 Overexpression', 'DDIT3 Overexpression', 'DDR1 AMP', 'DDR1 Mutation', 'DDR1 Underexpression', 'DDR2 AMP', 'DDR2 Mutation', 'DDR2 Overexpression', 'DDR2 S768R', 'DDX11 Mutation', 'DDX3X Mutation', 'DDX3X Underexpression', 'DDX41 Underexpression', 'DDX43 Overexpression', 'DHX9 Mutation', 'DHX9 Overexpression', 'DICER1 Mutation', 'DICER1 Overexpression', 'DKK1 Underexpression', 'DLBC2 DEL', 'DNMT1 Overexpression', 'DNMT1 Underexpression', 'DNMT3A Mutation', 'DNMT3A Overexpression', 'DNMT3A Underexpression', 'DUSP6 Mutation', 'DUSP6 Underexpression', 'DYRK1B Mutation', 'E2014K Mutation', 'EFGR Mutation', 'EGFR AMP', 'EGFR C797S', 'EGFR D761Y', 'EGFR DEL', 'EGFR Exon 20 insertion', 'EGFR G465R', 'EGFR G719', 'EGFR G719D', 'EGFR G719S', 'EGFR L858R', 'EGFR L859R', 'EGFR L860R', 'EGFR L861', 'EGFR L861Q', 'EGFR L861R', 'EGFR L862R', 'EGFR Mutation', 'EGFR Overexpression', 'EGFR Overexpression', 'EGFR Phosphorylation', 'EGFR R451C', 'EGFR T790M', 'EGFR Underexpression', 'EGFR Viii', 'EGFR exon19 DEL', 'EIF4G1 Mutation', 'EIF4G3 Underexpression', 'ELF1 Overexpression', 'ELF1 Underexpression', 'EP300 Mutation', 'EPAS1 Underexpression', 'EPHA2 Mutation', 'EPHA2 Underexpression', 'EPHA3 AMP', 'EPHB2 Underexpression', 'EPHB4 Underexpression', 'ER Mutation', 'ER Negative', 'ER Positive', 'ERBB Mutation', 'ERBB2 AMP', 'ERBB2 D769H', 'ERBB2 D769Y', 'ERBB2 DEL', 'ERBB2 E928G', 'ERBB2 L755S', 'ERBB2 M774INSAYVM', 'ERBB2 Mutation', 'ERBB2 Overexpression', 'ERBB2 Positive', 'ERBB2 R678Q', 'ERBB2 S310Y', 'ERBB2 T733I', 'ERBB2 proximal exon 20', 'ERBB3 AMP', 'ERBB3 E332K', 'ERBB3 G284R', 'ERBB3 Mutation', 'ERBB3 Overexpression', 'ERBB3 V104L', 'ERBB3 V855A', 'ERBB4 AMP', 'ERBB4 Fusion', 'ERBB4 Mutation', 'ERCC1 DEL', 'ERCC1 Mutation', 'ERCC1 Underexpression', 'ERCC2 Mutation', 'ERCC2 Underexpression', 'ERCC5 Mutation', 'ERG Overexpression', 'ERRFI1 Underexpression', 'ESR1 D538G', 'ESR1 E380Q', 'ESR1 L536P-Equiv', 'ESR1 L536Q', 'ESR1 Mutation', 'ESR1 Overexpression', 'ESR1 Y537C', 'ESR1 Y537N', 'ESR1 Y537S', 'ETV1 Underexpression', 'ETV4 Underexpression', 'ETV5 Underexpression', 'ETV6 Underexpression', 'EWSR1 Overexpression', 'EXO1 Mutation', 'EZH2 Mutation', 'F8 Mutation', 'FAM60A Mutation', 'FANCA Mutation', 'FANCA Overexpression', 'FANCA Underexpression', 'FANCC Overexpression', 'FANCD2 Underexpression', 'FAT1 Underexpression', 'FAT2 Mutation', 'FBXW7 Mutation', 'FCGR2A Overexpression', 'FCGR2B Overexpression', 'FGF13 Overexpression', 'FGF14 AMP', 'FGF19 AMP', 'FGF23 AMP', 'FGF3 AMP', 'FGF3 Mutation', 'FGF4 AMP', 'FGF6 AMP', 'FGF6 Mutation', 'FGFR AMP', 'FGFR Mutation', 'FGFR1 AMP', 'FGFR1 Mutation', 'FGFR1 Underexpression', 'FGFR2 AMP', 'FGFR2 EID296', 'FGFR2 Mutation', 'FGFR3 AMP', 'FGFR3 Mutation', 'FGFR4 AMP', 'FGFR4 Mutation', 'FGFR4 Overexpression', 'FIP1L1 Overexpression', 'FLT1 AMP', 'FLT1 Mutation', 'FLT3 AMP', 'FLT3 D835', 'FLT3 D835V', 'FLT3 Mutation', 'FLT3 Overexpression', 'FLT3__ITD', 'FLT4 AMP', 'FLT4 Mutation', 'FN1 Underexpression', 'FOS Underexpression', 'FOXL2 Underexpression', 'FOXO1 Overexpression', 'FOXO1 Underexpression', 'FOXO3 Underexpression', 'FOXP1 Mutation', 'FOXP1 Overexpression', 'FRS2 AMP', 'FTSJD1 Mutation', 'FUBP1 Overexpression', 'GADD45A Underexpression', 'GADD45B Underexpression', 'GADD45G Overexpression', 'GATA2 Expression', 'GATA2 Underexpression', 'GATA3 Overexpression', 'GATA3 Underexpression', 'GNA11 AMP', 'GNA11 Mutation', 'GNA11 Underexpression', 'GNAQ AMP', 'GNAQ Mutation', 'GNAQ Underexpression', 'GNAS AMP', 'GNAS Mutation', 'GNAS R201C', 'GNAS T393C', 'GPS2 Underexpression', 'H3F3A Overexpression', 'H3F3B Underexpression', 'HAVCR2 Overexpression', 'HDAC Mutation', 'HDAC9 AMP', 'HDAC9 Mutation', 'HER2 AMP', 'HER2 Mutation', 'HER2 Negative', 'HER3 Mutation', 'HGF AMP', 'HLA-DRA Expression', 'HMOX1 Expression', 'HMOX1 Underexpression', 'HNSC20 DEL', 'HNSC26 DEL', 'HR Mutation', 'HR Positive', 'HRAS AMP', 'HRAS Mutation', 'HRBB2 Positive', 'HSPA5 Underexpression', 'HSPA6 Mutation', 'HSPB1 Underexpression', 'Her2 AMP', 'Her2 Negative', 'ID1 Mutation', 'IDH1 Mutation', 'IDH2 Mutation', 'IDH2 Overexpression', 'IGF1R AMP', 'IGF1R Mutation', 'IGF2 AMP', 'IGFBP3 Underexpression', 'IKZF1 Overexpression', 'INPP4A Overexpression', 'IRS2 Underexpression', 'ITSN1 Mutation', 'ITSN1 Underexpression', 'JAK Mutation', 'JAK1 AMP', 'JAK1 Mutation', 'JAK1 Underexpression', 'JAK2 AMP', 'JAK2 Mutation', 'JAK2 Overexpression', 'JAK2 Underexpression', 'JAK3 AMP', 'JAK3 Mutation', 'JAK3 Overexpression', 'JUN Underexpression', 'KALRN Mutation', 'KALRN Underexpression', 'KAT6B Mutation', 'KAT6B Overexpression', 'KAT6B Underexpression', 'KDM5C Mutation', 'KDM6A Mutation', 'KDR A1065T', 'KDR AMP', 'KDR D717V', 'KDR Mutation', 'KIF5B-RET Fusion', 'KIT AMP', 'KIT L576P', 'KIT Mutation', 'KIT Overexpression', 'KIT V559D', 'KLLN Overexpression', 'KMT2A Mutation', 'KMT2C Overexpression', 'KMT2D Mutation', 'KMT2D Overexpression', 'KRAS A146T', 'KRAS A146V', 'KRAS AMP', 'KRAS G12/G13', 'KRAS G12A', 'KRAS G12C', 'KRAS G12D', 'KRAS G12R', 'KRAS G12V', 'KRAS G13D', 'KRAS Mutation', 'KRAS Q61H', 'KRAS Wild Type', 'KRAS Wild type', 'KRAS exon 2 Wild type', 'KRT18 Underexpression', 'LAG3 Underexpression', 'LAMA2 Mutation', 'LAMA2 Underexpression', 'LARP4B DEL', 'LARP4B Mutation', 'LCK Mutation', 'LGALS7 Mutation', 'LIMA1 Mutation', 'LIMA1 Underexpression', 'LMTK2 Underexpression', 'LMTK3 Underexpression', 'LNPEP Mutation', 'LNPEP Overexpression', 'LPHN2 Mutation', 'LRP1B Overexpression', 'LRP6 Underexpression', 'LTK Overexpression', 'LYN Underexpression', 'MACF1 Mutation', 'MACF1 Underexpression', 'MAGI2 Mutation', 'MAGI2 Underexpression', 'MAP2K1 AMP', 'MAP2K1 C121S', 'MAP2K1 K57N', 'MAP2K1 K57T', 'MAP2K1 Mutation', 'MAP2K2 AMP', 'MAP2K2 Mutation', 'MAP2K4 AMP', 'MAP2K4 Mutation', 'MAP2K4 Underexpression', 'MAP3K1 AMP', 'MAP3K1 Mutation', 'MAP3K4 Mutation', 'MAP4K3 Mutation', 'MAP4K3 Underexpression', 'MAPK1 AMP', 'MAPK1 Mutation', 'MAPK8 AMP', 'MAPK8 Mutation', 'MBD4 Overexpression', 'MCL1 Mutation', 'MCL1 Overexpression', 'MCM3 Underexpression', 'MCM7 Overexpression', 'MDM2 AMP', 'MDM2 Mutation', 'MDM4 Overexpression', 'MECOM Mutation', 'MECOM Underexpression', 'MED12 Overexpression', 'MED23 Overexpression', 'MED24 AMP', 'MED29 Mutation', 'MEK Mutation', 'MEN1 Mutation', 'MERTK Underexpression', 'MET 963_D1010splice', 'MET 981_1028splice', 'MET AMP', 'MET D1010H', 'MET D1010N', 'MET D1010Y', 'MET H1112L', 'MET Mutation', 'MET Overexpression', 'MET Underexpression', 'MET X1006_splice', 'MET X1007_splice', 'MET X1008_splice', 'MET X1009_splice', 'MET X963_splice', 'MGA Mutation', 'MGA Overexpression', 'MLH1 Mutation', 'MLH1 Underexpression', 'MLL Mutation', 'MLL2 Mutation', 'MLL3 Mutation', 'MNDA Overexpression', 'MRE11 Overexpression', 'MSH6 Overexpression', 'MSH6 Underexpression', 'MSI High', 'MST1R Mutation', 'MTOR AMP', 'MTOR C1483F', 'MTOR F1888L', 'MTOR L2230V', 'MTOR Mutation', 'MTOR S2215F', 'MTOR T1977K', 'MYB Overexpression', 'MYC AMP', 'MYC Mutation', 'MYC Underexpression', 'MYCN AMP', 'MYH11 Mutation', 'MYH9 Mutation', 'NAPRT Underexpression', 'NBN Overexpression', 'NBN Underexpression', 'NCOA3 Overexpression', 'NCOR1 Mutation', 'NCOR1 Overexpression', 'NCOR2 Mutation', 'NEDD9 Underexpression', 'NF1 DEL', 'NF1 Mutation', 'NF2 DEL', 'NF2 Mutation', 'NF2 R466*', 'NF2 Underexpression', 'NOTCH1 AMP', 'NOTCH1 Mutation', 'NOTCH2 AMP', 'NOTCH2 Mutation', 'NOTCH3 AMP', 'NOTCH3 Mutation', 'NOTCH4 AMP', 'NOTCH4 Mutation', 'NPM1 Mutation', 'NQO1 Underexpression', 'NR2F2 Overexpression', 'NR2F2 Underexpression', 'NR4A2 Underexpression', 'NRAS AMP', 'NRAS G12A', 'NRAS Mutation', 'NRAS Q61K', 'NRAS Q61L', 'NRAS Q61R', 'NRAS Underexpression', 'NRAS Wild type', 'NRG1 Mutation', 'NSD2 Overexpression', 'NSD2 Underexpression', 'NT5E Underexpression', 'NTN4 Underexpression', 'NTRK Fusion', 'NTRK Mutation', 'NTRK1 AMP', 'NTRK1 Mutation', 'NTRK1 Overexpression', 'NTRK2 AMP', 'NTRK2 Mutation', 'NTRK3 AMP', 'NTRK3 Mutation', 'NTRK3 Overexpression', 'NUP93 Underexpression', 'OV59 DEL', 'PALB2 DEL', 'PALB2 Mutation', 'PAM50mRNA_Her2amp Mutation', 'PANCAN111 DEL', 'PANCAN116 DEL', 'PANCAN216 DEL', 'PANCAN217 DEL', 'PANCAN218 DEL', 'PANCAN316 DEL', 'PANCAN317 DEL', 'PANCAN318 DEL', 'PANCAN319 DEL', 'PANCAN320 DEL', 'PANCAN321 DEL', 'PANCAN322 DEL', 'PANCAN323 DEL', 'PANCAN379 DEL', 'PANCAN380 DEL', 'PANCAN417 DEL', 'PANCAN424 DEL', 'PANCAN45 DEL', 'PANCAN46 DEL', 'PANCAN47 DEL', 'PANCAN48 DEL', 'PAPPA2 Overexpression', 'PARP Mutation', 'PARP1 DEL', 'PARP1 Mutation', 'PARP1 Overexpression', 'PARP1 Underexpression', 'PARP2 DEL', 'PARP2 Mutation', 'PARP2 Underexpression', 'PARP3 DEL', 'PARP3 Mutation', 'PAX5 Overexpression', 'PAX5 Underexpression', 'PAX8 Underexpression', 'PBLD Overexpression', 'PBRM1 Underexpression', 'PCDH18 Overexpression', 'PD-1 Mutation', 'PD-L1 Low Positive', 'PD-L1 Mutation', 'PD-L1 Positive', 'PDCD1LG2 AMP', 'PDCD4 Overexpression', 'PDGFB Mutation', 'PDGFR Mutation', 'PDGFRA AMP', 'PDGFRA D842V', 'PDGFRA G853D', 'PDGFRA H845Y', 'PDGFRA Mutation', 'PDGFRA Overexpression', 'PDGFRA P577S', 'PDGFRA R841K', 'PDGFRB AMP', 'PDGFRB Mutation', 'PDGFRB Overexpression', 'PERP Underexpression', 'PHF6 Overexpression', 'PHLPP1 Overexpression', 'PI3K Mutation', 'PI3KCA Mutation', 'PIDD1 Overexpression', 'PIK3C2B Overexpression', 'PIK3CA AMP', 'PIK3CA C378Y', 'PIK3CA E542K', 'PIK3CA E545K', 'PIK3CA H1047R', 'PIK3CA H1047Y', 'PIK3CA K111E', 'PIK3CA Mutation', 'PIK3CA R108H', 'PIK3CA wild type', 'PIK3CB AMP', 'PIK3CB Mutation', 'PIK3CB Underexpression', 'PIK3CD AMP', 'PIK3CD Mutation', 'PIK3CD Overexpression', 'PIK3CD Underexpression', 'PIK3CG Overexpression', 'PIK3R1 Mutation', 'PIK3R1 N564D', 'PIK3R1 Overexpression', 'PIK3R1 R577fs*3', 'PIK3R2 Mutation', 'PIK4CA Mutation', 'PIM1 Overexpression', 'PLCB1 Underexpression', 'PLCG1 Mutation', 'PLCG2 Overexpression', 'PLXNA1 Mutation', 'PML Overexpression', 'PML Underexpression', 'PML__RARA', 'POLD1 Mutation', 'POLE Mutation', 'POLE Overexpression', 'POLR2B Mutation', 'PPM1D AMP', 'PPP1R15A RS557806', 'PPP1R15A Underexpression', 'PR Negative', 'PRKCB Overexpression', 'PRKCH AMP', 'PSIP1 Overexpression', 'PTCH1 DEL', 'PTCH1 Mutation', 'PTEN DEL', 'PTEN Expression', 'PTEN Mutation', 'PTEN R130*', 'PTEN V45fs*7', 'PTEN loss exons 1-2', 'PTK2B Overexpression', 'PTK7 Underexpression', 'PTP4A3 Overexpression', 'PTPN11 AMP', 'PTPN11 Mutation', 'PTPN12 Underexpression', 'PTPRB Underexpression', 'PTPRF Underexpression', 'PTPRT Overexpression', 'PTPRU Underexpression', 'RAC1 P29S', 'RAC1 Underexpression', 'RAD17 Overexpression', 'RAD21 Mutation', 'RAD50 DEL', 'RAD50 Mutation', 'RAD51 DEL', 'RAD51 Mutation', 'RAD51 Overexpression', 'RAD51D Overexpression', 'RAD52 DEL', 'RAD52 Mutation', 'RAF1 AMP', 'RAF1 Mutation', 'RARA Mutation', 'RAS Mutation', 'RAS Wild type', 'RAS wild type', 'RASA1 Mutation', 'RB1 DEL', 'RB1 Mutation', 'RB1 Phosphorylation', 'RB1 Underexpression', 'RBM10 Mutation', 'RBM5 Underexpression', 'REL Overexpression', 'RET AMP', 'RET EID1622', 'RET Mutation', 'RET Overexpression', 'RFC1 Overexpression', 'RGS3 Underexpression', 'RHEB Underexpression', 'RICTOR AMP', 'RICTOR Mutation', 'RIT1 Mutation', 'RNF43 Mutation', 'ROBO2 Overexpression', 'ROR1 Underexpression', 'ROS1 AMP', 'ROS1 G2032R', 'ROS1 L2155S', 'ROS1 Mutation', 'RPA2 Overexpression', 'RPA2 Underexpression', 'RPGR Overexpression', 'RRM2 Underexpression', 'RSF1 Overexpression', 'RSF1 Underexpression', 'RTN4 Underexpression', 'RUNX1 Mutation', 'RYK Underexpression', 'SACS Mutation', 'SCAI Mutation', 'SCAI Overexpression', 'SERPINB5 Overexpression', 'SESN1 Underexpression', 'SESN2 Overexpression', 'SETD2 Mutation', 'SETD2 Overexpression', 'SETDB1 Overexpression', 'SGK1 Overexpression', 'SIN3A Overexpression', 'SIVA1 Overexpression', 'SKP2 Mutation', 'SMAD2 Mutation', 'SMAD4 Mutation', 'SMAD4 R445*', 'SMARCA1 Underexpression', 'SMARCA4 Mutation', 'SMARCB1 Overexpression', 'SMC1A Overexpression', 'SMO AMP', 'SMO Mutation', 'SOS1 Mutation', 'SOS1 Overexpression', 'SOS2 Mutation', 'SOX9 Mutation', 'SOX9 Underexpression', 'SPRY2 Underexpression', 'SPTAN1 Underexpression', 'SRC AMP', 'SRC Mutation', 'SRC Underexpression', 'SRGAP1 Underexpression', 'SRGAP3 Overexpression', 'STAD3 DEL', 'STAD47 DEL', 'STAG2 Underexpression', 'STAT6 Underexpression', 'STEAP3 Underexpression', 'STK11 DEL', 'STK11 Mutation', 'STK11 S216F', 'STK4 Overexpression', 'STMN1 Underexpression', 'STYK1 Underexpression', 'SVEP1 Underexpression', 'SYK AMP', 'SYK Mutation', 'TAF1 Mutation', 'TBK1 Overexpression', 'TBL1XR1 Underexpression', 'TCF12 Mutation', 'TCF7L2 Underexpression', 'TERT Mutation', 'TERT Overexpression', 'TERT Underexpression', 'TET2 Mutation', 'TFE3 Mutation', 'TFF3 Overexpression', 'TGIF1 Mutation', 'THBS1 Underexpression', 'THBS2 Overexpression', 'THRAP3 Overexpression', 'TIMP1 Underexpression', 'TJP1 Mutation', 'TJP1 Underexpression', 'TJP2 Mutation', 'TLK1 Overexpression', 'TLK2 Overexpression', 'TMB High', 'TMB Intermediate', 'TMPRSS2 Underexpression', 'TOP1 Underexpression', 'TOP2A AMP', 'TOP2A DEL', 'TP53 AMP', 'TP53 DEL', 'TP53 K373fs*22+', 'TP53 M160_A161insAIYK', 'TP53 Mutation', 'TP53 P250_I251 DEL', 'TP53 Q165*', 'TP53 R209fs*6', 'TP53 R248Q', 'TP53 R248W', 'TP53 R273H', 'TP53 S241F', 'TP53 Underexpression', 'TP53 V197G', 'TP53I3 Underexpression', 'TP73 Underexpression', 'TRIO Underexpression', 'TSC1 DEL', 'TSC1 Mutation', 'TSC1 Overexpression', 'TSC2 DEL', 'TSC2 Mutation', 'TSC2 Underexpression', 'TTF1 Overexpression', 'TTF1 Underexpression', 'TUBB3 Underexpression', 'TYRO3 Underexpression', 'USP6 Mutation', 'USP6 Underexpression', 'VEGF Mutation', 'VEGFA Underexpression', 'VHL DEL', 'VHL Mutation', 'VHL Overexpression', 'WASF3 AMP', 'WEE1 Overexpression', 'WHSC1 Mutation', 'WNK1 Overexpression', 'WWTR1 Underexpression', 'XP11.2__TF3', 'XPO1 Overexpression', 'XRCC3 DEL', 'XRCC3 Mutation', 'XRN1 Mutation', 'YAP1 Overexpression', 'YAP1 Underexpression', 'ZC3H11A Overexpression', 'ZC3H11A Underexpression', 'ZFHX3 Underexpression', 'ZFP36L1 Underexpression', 'ZFP36L2 Overexpression', 'ZMAT3 Underexpression', 'ZNF217 Mutation', 'ZNF217 Underexpression', 'ZNF292 Underexpression', 'dMMR', 'mTOR E2014K', 'mTOR E2419K', 'mTOR Mutation'];
+
+            var currentDataList = []; // 当前使用的提示数据数组
+
+            // 监听radio按钮的变化
+            document.querySelectorAll('input[name="inlineRadioOptions"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                switch (this.value) {
+                case "Drug: e.g. Afatinib":
+                    currentDataList = dataListDrug;
+                    break;
+                case "Gene: e.g. BRAF or 'BRAF; KRAS'":
+                    currentDataList = dataListGene;
+                    break;
+                case "Biomarker: e.g. BRAF V600E or 'TP53 V197G; KRAS G12D'":
+                    currentDataList = dataListBiomarker;
+                    break;
+                }
+            });
+            });
+            // 默认选中第一个radio按钮
+            document.getElementById('inlineRadio3').checked = true;
+            currentDataList = dataListBiomarker;
+
+            var ul = document.getElementById("ul");
+            var searchInput = document.getElementById("searchInput");
+
+            // 当用户离开输入字段时对其进行验证
+            searchInput.onblur = function() {
+            searchInput.style.borderColor = "initial";
+            ul.style.display = "none";
+            }
+
+            // 当元素获得用户输入时运行的脚本
+            searchInput.oninput = function() {
+            selectKeys();
+            }
+
+            searchInput.onpropertychange = function() {
+            selectKeys();
+            }
+
+            function selectKeys() {
+            var value = searchInput.value.toUpperCase();
+            if (value != "") {
+                ul.innerHTML = "";
+                for (var i = 0; i < currentDataList.length; i++) {
+                if (currentDataList[i].toUpperCase().indexOf(value) != -1) {
+                    var li = document.createElement("li");
+                    li.innerHTML = currentDataList[i];
+                    li.onmousedown = function() { // 为li动态添加事件,(此处使用onmousedown而非onclick，主要解决onblur与onclick事件时的冲突问题)
+                    searchInput.value = this.innerHTML;
+                    }
+                    ul.appendChild(li);
+                    ul.style.display = "block";
+                }
+                }
+            } else {
+                ul.style.display = "none";
+            }
+            }
+            </script>
+        </div>
+
+          
+      </div>
+<!--data search-->
+<br>
+<br>
+
+<div class="custom-container mt-5" >
+            <div class="row col-md-12 custom-row">
+                <!-- 第一行 -->
+                <div class="col-md-4 " >
+                    <div id="main4" class="chart"></div>
+                    <h3 style="font-size: 1.4em"> <b  style="font-size: 2em;">64</b> <strong>&nbspCancer types</strong> </h3>
+                </div>
+                
+                <div class="col-md-4  " >
+                    <div id="main1" class="chart"></div>
+                    <h3 style="font-size: 1.4em"> <b  style="font-size: 2em;">7,669</b> <strong>&nbspData entries</strong>  </h3>
+                </div>
+                
+                <div class="col-md-4 ">
+                    <div id="main2" class="chart"></div>
+                    <h3  style="font-size: 1.4em"><b  style="font-size: 2em;">2,140</b> <strong>&nbspDrug combinations</strong></h3>
+                </div>
+                
+            </div>
+
+            <!-- 第二行 -->
+            <div class="row custom-row " >
+                <div class="col-md-4 ">
+                    <div id="main3" class="chart"></div>
+                    <h3 style="font-size: 1.4em"><b  style="font-size: 2em;">1,344</b><strong>&nbspBiomarkers</strong></h3>
+                </div>
+                
+                <div class="col-md-4 ">
+                <div id="main5" class="chart"></div>
+                <h3 style="font-size: 1.4em"><b  style="font-size: 2em;">763</b><strong>&nbspPublished reports</strong></h3>
+                </div>
+                
+                <div class="col-md-4 ">
+                    <div id="main6" class="chart"></div>
+                    <h3 style="font-size: 1.4em"><b  style="font-size: 2em;">7</b><strong>&nbspTypes of evidences</strong></h3>
+                </div>
+
+            </div>
+    </div>
+    
+</div>
+</div>
+
+<footer>
+    <div class="row ">
+      <div class="col-md-12 footer-content">
+             <p class="pull-left"  style="margin-top: 20px;color: white;">2023-2024 © Mulinlab@Tianjin Medical University, All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer> 
+
+  {% endblock %}

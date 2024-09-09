@@ -1,0 +1,294 @@
+{% extends "bootstrap/base.html" %}
+
+{% block styles %}
+{{ super() }}
+
+<!-- Main CSS -->
+<link href="/oncodrug/static/css/main.css" rel="stylesheet"/>
+<!-- Animation CSS -->
+
+<link rel="stylesheet" type="text/css" href="/oncodrug/static/css/browse_jquery.dataTables.min.css">
+
+<style>
+        body {
+        font-family: Arial, sans-serif
+    }
+	
+    a {
+color: #0968C5; 
+}
+
+.custom-navbar .navbar-nav > li > a {
+		color: #fff; 
+		margin-right: -50px;
+	}
+
+.custom-navbar {
+  background: linear-gradient(145deg, #8a33c9, #bc6ed0); 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
+    border: none; 
+}
+
+
+.navbar .navbar-nav {
+display: inline-block;
+float: none;
+vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+text-align: center;
+}
+
+    .navbar-nav .nav-link {
+        margin-right: 25px;
+        margin-left: 25px;
+        font-size: 20px;
+    }
+
+
+
+.custom-container {
+max-width: 1700px; 
+margin-left: auto;
+margin-right: auto;
+}
+
+.custom-statistics {
+max-width: 1700px; 
+margin: 0 auto; 
+
+}
+
+.custom-row {
+margin-top: 40px; 
+margin-bottom: 40px; 
+}
+
+
+.custom-btn {
+border: 2px solid white;
+}
+
+
+.custom-btn:hover {
+background-color: white;
+}
+
+
+.nav-link {
+font-size: 20px; 
+}
+
+
+.container_pills {
+margin-left: 600px; 
+}
+    
+      hr {
+        border-color: #0968C3;
+        border-width: 0;
+        width: 100%;
+        margin: 10px auto;
+        background-color: #0968C3;
+        height: 3px;
+        border: none;
+      }
+    
+
+      footer {
+    height: 60px;
+    background-color: #6710c7;
+    margin-bottom:0;
+    position: relative;
+    width: 100%;
+}
+
+html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            flex: 1;
+        }
+
+        .footer-content p {
+        margin: 10;
+        text-align: center; 
+        width: 100%; 
+    }
+</style>
+{% endblock %}
+
+
+
+{% block scripts%}
+
+{{super()}}
+
+<script>
+    $(document).ready(function() {
+        var table = $('#nominate').DataTable( {
+            scrollY: "30em",
+            scrollX: true,
+            scrollCollapse: true,
+            paging: false,
+            fixedColumns: true,
+
+            columnDefs: [
+            { type: 'scientific', targets: 4 }, // denote its type for sorting, not for rendering
+            ],
+        } );
+    } );
+
+</script>
+<script src="/oncodrug/static/js/browse_bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="/oncodrug/static/css/browse_bootstrap-table.min.css">
+<script src="/oncodrug/static/js/browse_tableExport.min.js"></script>
+<script src="/oncodrug/static/js/browse_bootstrap-table-locale-all.min.js"></script>
+
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-inverse custom-navbar">
+  <div class="container-fluid justify-content-center">
+
+    <div class="collapse navbar-collapse" >
+      <ul class="nav navbar-nav">
+          <li class=" nav-link"><a  class="custom-glyph nav-link custom-text" href="{{ url_for('web_index.home') }}" style="font-size: 1.4em;">OncoDrug+</a></li>
+        <li class=" nav-link"><a href="{{ url_for('web_index.home') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-home custom-glyph"></span> Home</a></li>
+        <li class=" nav-link"><a href="{{ url_for('web_index.browse_levela') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-search custom-glyph"></span> Browse</a></li>
+        <li class=" nav-link"><a href="{{ url_for('web_index.biomarker') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-map-marker custom-glyph"></span> SmartQuery</a></li>
+        <li class="nav-link"><a href="{{ url_for('web_index.statistics') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-stats custom-glyph"></span> Statistics</a></li>
+        <li class="nav-link"><a href="{{ url_for('web_index.download_db') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-download-alt custom-glyph"></span> Download</a></li>
+        <li class="nav-link"><a href="{{ url_for('web_index.about_document') }}" class="custom-glyph nav-link custom-text"><span class="glyphicon glyphicon-info-sign custom-glyph"></span> Documentation</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  {% endblock %}
+
+{% block content %}
+
+<!--左侧表格栏-->
+<div class="content" style="display: flex; flex-wrap: wrap">
+    <div class="border-right" style="position:relative;width:300px;padding:15px;">
+        <div class="card">
+          <img class="card-img-top" src="/oncodrug/static/img/oncodrug_logo_border.png" style="height: 111.7px;width:300px ;" alt="card-img-top">
+            <div class="card-body">
+                <h1 class='card-title' style="text-align: center;">Download</h1><p class='card-text'>Users have the option to download the complete database, data for different evidence strength levels, and data from various sources through the database website.<br> </p>            </div>
+
+        </div>
+    </div>
+
+<!--右侧表格栏-->
+    <div style="position:relative; padding: 10px 20px;padding-top: 10px;width: calc(100% - 300px);">
+        <h1>
+          Data download        </h1>
+        <hr>
+        
+        <style>
+            .custom-file-upload {
+              display: inline-block;
+              padding: 6px 12px;
+              cursor: pointer;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+            }
+            
+            .custom-file-upload span {
+              font-size: 14px;
+              margin-right: 8px;
+            }
+            </style>
+        
+
+            <table id="table"
+             data-toggle="table"
+            data-height="750"
+
+            >
+            <thead>
+                <tr>
+                        <th>No</th>
+                        
+                        <th>File name</th>
+
+                        <th>Description</th>
+                        
+                        <th>Release Date</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+
+                    <tr>
+                        <td>1</td>
+
+                        <td><a href="{{ url_for('web_index.download_db_file', filename='LevelA_data.xlsx') }}">LevelA_dataset.xlsx</a></td>
+                        
+                        <td>Level A dataset: data derived from professional clinical guidelines or included in the FDA database.</td>
+                    
+                        <td>2024.6.25</td>
+                    
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+
+                        <td><a href="{{ url_for('web_index.download_db_file', filename='LevelB_data.xlsx') }}">LevelB_dataset.xlsx</a></td>
+                        
+                        <td>Level B dataset: data sourced from large-scale population clinical trials and individual case reports from hospital records.</td>
+                    
+                        <td>2024.6.25</td>
+                    
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+
+                        <td><a href="{{ url_for('web_index.download_db_file', filename='LevelC_data.xlsx') }}">LevelC_dataset.xlsx</a></td>
+                        
+                        <td>Level C dataset: data obtained from in vivo or in vitro experiments, including PDX mouse models, cell line models, and high-throughput drug screening experiments.</td>
+                    
+                        <td>2024.6.25</td>
+                    
+                    </tr>
+
+                    <tr>
+                        <td>4</td>
+
+                        <td><a href="{{ url_for('web_index.download_db_file', filename='LevelD_data.xlsx') }}">LevelD_dataset.xlsx</a></td>
+                        
+                        <td>Level D dataset: data derived from drug combination predictions based on bioinformatics or machine learning models.</td>
+                    
+                        <td>2024.6.25</td>
+                    
+                    </tr>
+
+                </tbody>
+        </table>
+        
+        <script src="/oncodrug/static/js/download_jquery-3.5.1.slim.min.js"></script>
+        <script src="/oncodrug/static/js/download_popper.min.js"></script>
+        <script src="/oncodrug/static/js/download_bootstrap-table.min.js"></script>
+        <link rel="stylesheet" href="/oncodrug/static/js/browse_all.min.css">
+
+    </div>
+</div>
+    
+
+
+<footer>
+  <div class="row ">
+    <div class="col-md-12 footer-content">
+           <p class="pull-left"  style="margin-top: 20px;color: white;">2023-2024 © Mulinlab@Tianjin Medical University, All Rights Reserved.</p>
+    </div>
+  </div>
+</footer> 
+
+{% endblock %}
